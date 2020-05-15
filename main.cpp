@@ -8,6 +8,17 @@
 
 using namespace std;
 
+void OcultarCursor (){
+HANDLE hCon;
+hCon = GetStdHandle(STD_OUTPUT_HANDLE);
+CONSOLE_CURSOR_INFO cci;
+cci.dwSize = 2;
+cci.bVisible = false;
+
+SetConsoleCursorInfo(hCon, &cci);
+
+}
+
 void gotoxy(int x, int y){
 	HANDLE hCon;
 	hCon = GetStdHandle(STD_OUTPUT_HANDLE);
