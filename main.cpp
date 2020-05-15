@@ -7,7 +7,31 @@
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 using namespace std;
+void SetColor(int ForgC) 
+{ 
+    WORD wColor; 
+     HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE); 
+     CONSOLE_SCREEN_BUFFER_INFO csbi; 
 
+         //We use csbi for the wAttributes word. 
+    if(GetConsoleScreenBufferInfo(hStdOut, &csbi)) 
+    { 
+       //Mask out all but the background attribute, and add in the forgournd  color 
+      wColor = (csbi.wAttributes & 0xF0) + (ForgC & 0x0F); 
+      SetConsoleTextAttribute(hStdOut, wColor); 
+    } 
+    return; 
+} 
+void Color(int Background, int Text){ // Función para cambiar el color del fondo y/o pantalla
+
+ HANDLE Console = GetStdHandle(STD_OUTPUT_HANDLE); // Tomamos la consola.
+
+ // Para cambiar el color, se utilizan números desde el 0 hasta el 255.
+ // Pero, para convertir los colores a un valor adecuado, se realiza el siguiente cálculo.
+ int    New_Color= Text + (Background * 16);
+
+ SetConsoleTextAttribute(Console, New_Color); // Guardamos los cambios en la Consola.
+}
 void OcultarCursor (){
 HANDLE hCon;
 hCon = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -261,6 +285,60 @@ void escenario(){
 
 int main() {
 	menu_general();
+	system("cls");
+	OcultarCursor();
+	fondo();
+	escenario();
+	//Juego.
+	/*char soundfile[] = "Sounds/disparo1.wav";
+	cout<<PlaySound((LPCSTR)soundfile, NULL, SND_FILENAME | SND_ASYNC );
+	*/
+	//variables en general
+	int opc;
+	int nivel = 1;
+	bool on = true;
+	int tecla,disparo=0;
+	//Declarar objetos a usar
+	Torretas torreta_I(2,15,1,2), torreta_M(43,13,1,1),torreta_D(85,13,1,3);
+	Ciudad ciudad_1(9,22,1,1), ciudad_2(22,19,1,2), ciudad_3(37,19,1,3), ciudad_4(47,17,1,4), ciudad_5(55,20,1,5),ciudad_6(81,17,1,6);
+	Enemigo enemigo_1(84,3,1,1);
+	Bala bala_T(torreta_M.X(),torreta_M.Y()-1);
+//---------------------------------------------------------------------
+	torreta_I.pintar();
+	torreta_M.pintar();
+	torreta_D.pintar();
+	ciudad_1.pintar();
+	ciudad_2.pintar();
+	ciudad_3.pintar();
+	ciudad_4.pintar();
+	ciudad_5.pintar();
+	ciudad_6.pintar();
+	enemigo_1.pintar();
+	while(on){
+		if(nivel == 1){
+			escenario();
+			Sleep(20);
+			enemigo_1.destruir();
+			if(kbhit()){
+				tecla = getch();
+				if(tecla == 32){
+					disparo = 1;
+					tecla = -1;
+				}
+		    }
+		    bala_T.borrar();
+		    if(disparo == 1){
+		    	bala_T.movimiento();
+		    	bala_T.pintar();
+		    	if(bala_T.ybala() == 0){
+		    		disparo = 0;
+				}
+			}
+		    enemigo_1.movimiento();
+		    enemigo_1.pintar();
+		}
+	}
 	return 0;
 }
+
 
