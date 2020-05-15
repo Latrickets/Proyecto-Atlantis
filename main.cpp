@@ -51,35 +51,42 @@ void gotoxy(int x, int y){
 	dwPos.Y = y;
 	SetConsoleCursorPosition(hCon, dwPos);
 }
+
 void titulo(int textos){
 	if (textos == 1){
-    gotoxy(22,0);cout<<" _______ _________ _        _______  _       __________________ _______ \n";
-	gotoxy(22,1);cout<<"(  ___  )\\__   __/( \\      (  ___  )( (    /|\\__   __/\\__   __/(  ____ \\\n";
-	gotoxy(22,2);cout<<"| (   ) |   ) (   | (      | (   ) ||  \\  ( |   ) (      ) (   | (    \\/\n";
-    gotoxy(22,3);cout<<"| (___) |   | |   | |      | (___) ||   \\ | |   | |      | |   | (_____ \n";
-    gotoxy(22,4);cout<<"|  ___  |   | |   | |      |  ___  || (\\ \\) |   | |      | |   (_____  )\n";
-    gotoxy(22,5);cout<<"| (   ) |   | |   | |      | (   ) || | \\   |   | |      | |         ) |\n";
-    gotoxy(22,6);cout<<"| )   ( |   | |   | (____/\\| )   ( || )  \\  |   | |   ___) (___/\\____) |\n";
-    gotoxy(22,7);cout<<"|/     \\|   )_(   (_______/|/     \\||/    )_)   )_(   \\_______/\\_______)\n";
-    gotoxy(22,8);cout<<"                                                                        "<<endl;
+    gotoxy(9,0);SetColor(4);cout<<" _______ _________ _        _______  _       __________________ _______ \n";
+	gotoxy(9,1);SetColor(4);cout<<"(  ___  )\\__   __/( \\      (  ___  )( (    /|\\__   __/\\__   __/(  ____ \\\n";
+	gotoxy(9,2);SetColor(12);cout<<"| (   ) |   ) (   | (      | (   ) ||  \\  ( |   ) (      ) (   | (    \\/\n";
+    gotoxy(9,3);SetColor(12);cout<<"| (___) |   | |   | |      | (___) ||   \\ | |   | |      | |   | (_____ \n";
+    gotoxy(9,4);SetColor(14);cout<<"|  ___  |   | |   | |      |  ___  || (\\ \\) |   | |      | |   (_____  )\n";
+    gotoxy(9,5);SetColor(2);cout<<"| (   ) |   | |   | |      | (   ) || | \\   |   | |      | |         ) |\n";
+    gotoxy(9,6);SetColor(1);cout<<"| )   ( |   | |   | (____/\\| )   ( || )  \\  |   | |   ___) (___/\\____) |\n";
+    gotoxy(9,7);SetColor(5);cout<<"|/     \\|   )_(   (_______/|/     \\||/    )_)   )_(   \\_______/\\_______)\n";
+    gotoxy(9,8);cout<<"                                                                        "<<endl;
+    SetColor(15);
+    
     }else if(textos == 2){
-    	gotoxy(8,1);cout<<"Destruye todas las naves enemigas antes de que destruyan la ciudad.";
-    	gotoxy(8,2);cout<<"Disparo nave central:";
-    	gotoxy(8,3);cout<<"Presionando la tecla espacio.";
+    	gotoxy(35,0);cout<<"Instrucciones";
+    	gotoxy(8,2);cout<<"Destruye todas las naves enemigas antes de que destruyan la ciudad.";
+    	gotoxy(8,3);cout<<"Disparo nave central:";
+    	gotoxy(8,4);cout<<"Presionando la tecla espacio.";
     	gotoxy(8,5);cout<<"Disparo nave lateral izquierda:";
     	gotoxy(8,6);cout<<"Presiona la tecla izquierda.";
-    	gotoxy(8,8);cout<<"Disparo nave lateral derecha:";
-    	gotoxy(8,9);cout<<"Presiona la tecla derecha y espacio.";
+    	gotoxy(8,7);cout<<"Disparo nave lateral derecha:";
+    	gotoxy(8,8);cout<<"Presiona la tecla derecha y espacio.";
 	}else if(textos == 3){
+		gotoxy(37,0);cout<<"Creditos";
 		gotoxy(8,3);cout<<"Creado por: ";
-		gotoxy(8,4);cout<<"Evelyn Gonzalez Aragon";
-		gotoxy(8,5);cout<<"Angel Duarte Amador";
+		gotoxy(8,4);SetColor(1);cout<<"Evelyn Gonzalez Aragon";
+		gotoxy(8,5);SetColor(5);cout<<"Angel Duarte Amador";
+		SetColor(15);
 	}
 }
 
 
 int menu(string opc[100],int cant_opc,int textos){
-	//Funcion para saber en que opción estamos
+	OcultarCursor();
+	//Funcion para saber en que opci?n estamos
 	bool escape = true;
 	int tecla;
 	int opc_sel = 1;
@@ -87,10 +94,10 @@ int menu(string opc[100],int cant_opc,int textos){
 		system("cls");
 		titulo(textos);
 		//posicion de nuestro seleccionador
-		gotoxy(5,9+opc_sel);cout<<"->";
+		gotoxy(34,11+opc_sel);cout<<"->";
 		//Mostrar las opciones al jugador
 		for (int i = 0; i < cant_opc; i++){
-			gotoxy(10,10+i);cout<<i+1<<". "<<opc[i];
+			gotoxy(37,12+i);cout<<i+1<<". "<<opc[i];
 		}
 		
 		//Recibir la tecla arriba, abajo y enter
