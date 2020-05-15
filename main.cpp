@@ -290,6 +290,18 @@ void escenario(){
 	SetColor(15);
 }
 
+void fondo(){
+	Color(3,3);
+	for (int i = 0; i < 88; i++){
+		gotoxy(i,17);printf(" ");
+		gotoxy(i,18);printf(" ");
+		gotoxy(i,19);printf(" ");
+		gotoxy(i,20);printf(" ");
+		gotoxy(i,21);printf(" ");
+		gotoxy(i,22);printf(" ");
+	}
+	Color(0,15);
+}
 int main() {
 	menu_general();
 	system("cls");
