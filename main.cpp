@@ -134,6 +134,120 @@ void menu_general(){
 	}while(escape);
 }
 
+void escenario(){
+	
+	//piso abajo
+	SetColor(8);
+	for (int i = 0; i < 88; i++){
+		gotoxy(i, 24); printf("%c", 219);
+		gotoxy(i, 25); printf("%c", 219);
+		gotoxy(i, 26); printf("%c", 219);
+		gotoxy(i, 27); printf("%c", 219);
+		gotoxy(i, 28); printf("%c", 219);
+		gotoxy(i, 29); printf("%c", 219);
+	}
+	//piso del escenario
+	SetColor(2);
+	for(int i = 0; i < 88; i++){
+		gotoxy(i, 23);printf("%c",219);
+	}
+	//estructura torreta 1
+	for(int i = 0; i < 5; i++){
+		gotoxy(i,18);printf("%c",219);
+	}
+	for(int i = 0; i < 6; i++){
+		gotoxy(i,19);printf("%c",219);
+		gotoxy(i,20);printf("%c",219);
+		gotoxy(i,21);printf("%c",219);
+		gotoxy(i,22);printf("%c",219);
+	}
+	for(int i = 6; i < 8; i++){
+		gotoxy(i,21);printf("%c",219);
+		gotoxy(i,22);printf("%c",219);
+	}
+	//estructura torreta 2
+	for(int i = 42; i <46; i++){
+		gotoxy(i,16);printf("%c",219);
+		gotoxy(i,17);printf("%c",219);
+	}
+	for(int i = 40; i <50; i++){	
+		gotoxy(i,18);printf("%c",219);
+		gotoxy(i,19);printf("%c",219);
+		gotoxy(i,20);printf("%c",219);
+		gotoxy(i,21);printf("%c",219);
+		gotoxy(i,22);printf("%c",219);
+	}
+	for(int i = 36; i < 40; i++){
+		gotoxy(i,20);printf("%c",219);
+		gotoxy(i,21);printf("%c",219);
+		gotoxy(i,22);printf("%c",219);
+	}
+	//estructura cupula 1
+	for(int i = 18; i < 33; i++){
+		gotoxy(i,21);printf("%c",219);
+		gotoxy(i,22);printf("%c",219);
+	}
+	for(int i = 16; i < 18; i++){
+		gotoxy(i,22);printf("%c",219);
+	}
+	//estructura cupula 2
+	for(int i = 50; i < 52; i++){
+		gotoxy(i,20);printf("%c",219);
+		gotoxy(i,21);printf("%c",219);
+		gotoxy(i,22);printf("%c",219);
+	}
+	for(int i = 52; i < 54; i++){
+		gotoxy(i,21);printf("%c",219);
+		gotoxy(i,22);printf("%c",219);
+	}
+	for(int i = 62; i < 64; i++){
+		gotoxy(i,21);printf("%c",219);
+		gotoxy(i,22);printf("%c",219);
+	}
+	for(int i = 64; i < 73; i++){
+		gotoxy(i,20);printf("%c",219);
+		gotoxy(i,21);printf("%c",219);
+		gotoxy(i,22);printf("%c",219);
+	}
+	//estructura torreta 3
+	for(int i = 73; i < 75; i++){
+		gotoxy(i,21);printf("%c",219);
+		gotoxy(i,22);printf("%c",219);
+	}
+	for(int i = 75; i < 79; i++){
+		gotoxy(i,19);printf("%c",219);
+		gotoxy(i,20);printf("%c",219);
+		gotoxy(i,21);printf("%c",219);
+		gotoxy(i,22);printf("%c",219);
+	}
+	for(int i = 79; i < 83; i++){
+		gotoxy(i,18);printf("%c",219);
+		gotoxy(i,19);printf("%c",219);
+		gotoxy(i,20);printf("%c",219);
+		gotoxy(i,21);printf("%c",219);
+		gotoxy(i,22);printf("%c",219);
+	}
+	for(int i = 83; i < 84; i++){
+		gotoxy(i,17);printf("%c",219);
+		gotoxy(i,18);printf("%c",219);
+		gotoxy(i,19);printf("%c",219);
+		gotoxy(i,20);printf("%c",219);
+		gotoxy(i,21);printf("%c",219);
+		gotoxy(i,22);printf("%c",219);
+	}
+	for(int i = 84; i < 88; i++){
+		gotoxy(i,16);printf("%c",219);
+		gotoxy(i,17);printf("%c",219);
+		gotoxy(i,18);printf("%c",219);
+		gotoxy(i,19);printf("%c",219);
+		gotoxy(i,20);printf("%c",219);
+		gotoxy(i,21);printf("%c",219);
+		gotoxy(i,22);printf("%c",219);
+	}
+	
+	SetColor(15);
+}
+
 int main() {
 	menu_general();
 	return 0;
