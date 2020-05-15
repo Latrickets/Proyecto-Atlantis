@@ -120,8 +120,12 @@ void titulo(int textos){
 	}else if(textos == 3){
 		gotoxy(37,0);cout<<"Creditos";
 		gotoxy(8,3);cout<<"Creado por: ";
-		gotoxy(8,4);SetColor(1);cout<<"Evelyn Gonzalez Aragon";
-		gotoxy(8,5);SetColor(5);cout<<"Angel Duarte Amador";
+		gotoxy(8,4);SetColor(1);cout<<"Evelyn Gonzalez Aragon.";
+		gotoxy(8,5);SetColor(5);cout<<"Angel Duarte Amador.";
+		gotoxy(8,6);SetColor(2);cout<<"Universidad Autonoma de Baja California Sur.";
+		gotoxy(8,7);SetColor(2);cout<<"Departamento Academico de Sistemas Computacionales.";
+		gotoxy(8,8);SetColor(4);cout<<"Programacion I.";
+		gotoxy(8,9);SetColor(4);cout<<"Jonathan Giovanni Soto Muñoz.";
 		SetColor(15);
 	}
 }
