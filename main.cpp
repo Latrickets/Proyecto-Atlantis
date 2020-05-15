@@ -10,6 +10,46 @@
 #include "Ciudad.h"
 #include "Bala.h"
 using namespace std;
+//----------------------------------------------------------------------------
+struct console
+  {
+  console( unsigned width, unsigned height )
+    {
+    SMALL_RECT r;
+    COORD      c;
+    hConOut = GetStdHandle( STD_OUTPUT_HANDLE );
+
+    r.Left   =
+    r.Top    = 0;
+    r.Right  = width -1;
+    r.Bottom = height -1;
+    SetConsoleWindowInfo( hConOut, TRUE, &r );
+
+    c.X = width;
+    c.Y = height;
+    SetConsoleScreenBufferSize( hConOut, c );
+    }
+
+  ~console()
+    {
+    SetConsoleTextAttribute(    hConOut,        csbi.wAttributes );
+    SetConsoleScreenBufferSize( hConOut,        csbi.dwSize      );
+    SetConsoleWindowInfo(       hConOut, TRUE, &csbi.srWindow    );
+    }
+
+  void color( WORD color = 0x07 )
+    {
+    SetConsoleTextAttribute( hConOut, color );
+    }
+
+  HANDLE                     hConOut;
+  CONSOLE_SCREEN_BUFFER_INFO csbi;
+  };
+
+//----------------------------------------------------------------------------
+
+
+//----------------------------------------------------------------------------
 void SetColor(int ForgC) 
 { 
     WORD wColor; 
@@ -307,6 +347,7 @@ void fondo(){
 	Color(0,15);
 }
 int main() {
+	console con( 89, 30 );
 	menu_general();
 	system("cls");
 	OcultarCursor();
