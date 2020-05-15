@@ -165,6 +165,7 @@ void menu_general(){
 		seleccion = menu(opcs,cant_opc,textos);
 		switch(seleccion){
 			case 1:
+				escape = false;
 				break;
 			case 2:
 				instrucciones();
