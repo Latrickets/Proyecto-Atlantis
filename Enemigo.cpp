@@ -54,7 +54,12 @@ void Enemigo::pintar(){
 		Color3(0,8);gotoxy4(this->x+1, this->y+1);printf("%c%c",219,219);
 		Color3(0,2);gotoxy4(this->x+2, this->y+2);printf("%c",223);
 	}else if(numE == 2){
+		Color3(0,2);gotoxy4(this->x, this->y);printf("%c",254);Color3(0,7);printf("%c",219);Color3(0,7);printf("%c", 219);Color3(0,2);printf("%c", 254);
+		Color3(0,2);gotoxy4(this->x+1, this->y+1);printf("%c%c",87,87);
 	}else if(numE == 3){
+		Color3(0,8);gotoxy4(this->x, this->y);printf("%c",206);Color3(0,4);printf("%c%c",220,220);Color3(0,4);printf("%c", 220);Color3(0,8);printf("%c", 206);
+		Color3(0,8);gotoxy4(this->x+1, this->y+1);printf("%c",203);Color3(0,8);printf("%c", 206);Color3(0,8);printf("%c", 203);
+		Color3(0,4);gotoxy4(this->x+2, this->y+2);printf("%c",223);
 	}
 	Color3(0,15);
 }
@@ -63,11 +68,28 @@ void Enemigo::destruir(){
 		Color3(0,0);gotoxy4(this->x, this->y);printf("    ");
 		Color3(0,0);gotoxy4(this->x+1, this->y+1);printf("  ");
 		Color3(0,0);gotoxy4(this->x+2, this->y+2);printf(" ");
+	}else if(numE == 2){
+		Color3(0,0);gotoxy4(this->x, this->y);printf("    ");
+		Color3(0,0);gotoxy4(this->x+1, this->y+1);printf("  ");
+	}else if(numE == 3){
+		Color3(0,0);gotoxy4(this->x, this->y);printf("     ");
+		Color3(0,0);gotoxy4(this->x+1, this->y+1);printf("   ");
+		Color3(0,0);gotoxy4(this->x+2, this->y+2);printf(" ");
 	}
 	Color3(0,15);
 }
 void Enemigo::movimiento(){
 	if(numE == 1){
+		this->x = this->x + dx;
+		if(this->x == 0 || this->x == 84){
+			dx *= -1;
+		}
+	} else if(numE == 2){
+		this->x = this->x + dx;
+		if(this->x == 0 || this->x == 84){
+			dx *= -1;
+		}
+	}else if(numE == 3){
 		this->x = this->x + dx;
 		if(this->x == 0 || this->x == 84){
 			dx *= -1;
