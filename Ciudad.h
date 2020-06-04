@@ -10,11 +10,17 @@ class Ciudad {
 		int vida;
 		int numC;
 	public:
-		Ciudad(int, int, int, int);
+		Ciudad();
+		void crear(int, int, int, int);
 		void pintar();
 		void borrar();
-		
+		int getNC();
+		int getX();
+		int getY();
+		int getV();
+		void destruct();
 };
 
 
 #endif //UNTITLED_CIUDAD_H
+
