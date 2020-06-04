@@ -10,6 +10,25 @@
 #include "Ciudad.h"
 #include "Bala.h"
 using namespace std;
+Enemigo enemigos1[3];
+Torretas torres[3];
+Ciudad ciudades[6];
+Bala balas_T[3];
+
+//posicion random de las balas enemigos 1
+
+int num_R[3] = {0,0,0};
+bool mover_bal[3] = {false,false,false}, disparados[3] = {false,false,false};
+Bala balas_E1[3];
+//
+Bala balas_E2[5];
+Bala balas_E3[7];
+Bala balas_E4[3];
+//variables controladoras generales del juego
+int cant_ciudades = 6;
+int cant_torretas = 3;
+int cant_enemigos[4] = {3,5,7,3};
+
 //----------------------------------------------------------------------------
 struct console
   {
@@ -47,8 +66,6 @@ struct console
   };
 
 //----------------------------------------------------------------------------
-
-
 //----------------------------------------------------------------------------
 void SetColor(int ForgC) 
 { 
@@ -85,7 +102,6 @@ cci.bVisible = false;
 SetConsoleCursorInfo(hCon, &cci);
 
 }
-
 void gotoxy(int x, int y){
 	HANDLE hCon;
 	hCon = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -94,7 +110,6 @@ void gotoxy(int x, int y){
 	dwPos.Y = y;
 	SetConsoleCursorPosition(hCon, dwPos);
 }
-
 void titulo(int textos){
 	if (textos == 1){
     gotoxy(9,0);SetColor(4);cout<<" _______ _________ _        _______  _       __________________ _______ \n";
@@ -129,8 +144,6 @@ void titulo(int textos){
 		SetColor(15);
 	}
 }
-
-
 int menu(string opc[100],int cant_opc,int textos){
 	OcultarCursor();
 	//Funcion para saber en que opci?n estamos
@@ -223,7 +236,6 @@ void menu_general(){
 		}
 	}while(escape);
 }
-
 void escenario(){
 	
 	//piso abajo
@@ -337,7 +349,6 @@ void escenario(){
 	
 	SetColor(15);
 }
-
 void fondo(){
 	Color(3,3);
 	for (int i = 0; i < 88; i++){
@@ -350,8 +361,46 @@ void fondo(){
 	}
 	Color(0,15);
 }
+bool colisionT(Enemigo enemys[], int tam, int num_enemys){ // Colision a enemigos nivel 1
+	for(int j = 0; j < 3; ++j){
+		for(int i = 0; i < tam; ++i){
+			if(balas_T[j].xbala() >= enemys[i].xEne() && balas_T[j].xbala() < enemys[i].xEne()+4 && balas_T[j].ybala() >= enemys[i].yEne() && balas_T[j].ybala() < enemys[i].yEne()+3){
+				enemys[i].destruir();
+				enemys[i].sVidas(0);
+				if(balas_E1[i].ybala() >=17){
+					Color(3,3);
+					balas_E1[i].borrar();
+					Color(0,15);
+				}else{
+					balas_E1[i].borrar();	
+				}
+				cant_enemigos[num_enemys] -= 1;
+				return true;
+			}
+		}
+	}
+	return false;
+}
+int movbalaT(int x, int _disp, Enemigo enemys[], int tam, int num_enemys){ // Movimiento y colision a enemigos
+	Color(0,15);
+	balas_T[x].borrar();
+	balas_T[x].movimiento();
+	balas_T[x].pintar();
+	if(colisionT(enemys, tam, num_enemys) == true){
+		balas_T[x].borrar();
+		balas_T[x].setY(0);
+		_disp = 0;
+		return _disp;
+	}
+	if(balas_T[x].ybala() == 0){
+		balas_T[x].borrar();
+		_disp = 0;
+		return _disp;
+	}
+	return _disp;
+}
 int main() {
-	console con( 89, 30 );
+	console con( 90, 30 );
 	menu_general();
 	system("cls");
 	OcultarCursor();
