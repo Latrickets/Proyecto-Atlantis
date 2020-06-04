@@ -489,6 +489,68 @@ int col_ciudades(Bala balitas[],int bal, int tam){ //colision balas enemigos.
 	}
 }
 
+void rutina_enemigos1(Bala balitas[], Enemigo enemys[], int tam){
+	//mover enemigos nivel 1
+	for(int i = 0; i < tam; i++){
+		if (enemys[i].Vidas() >= 1){
+			enemys[i].destruir();
+			enemys[i].movimiento();
+			enemys[i].pintar();	
+		}else{
+			enemys[i].destruct();
+		}
+	}
+	//disparos del nivel 1
+	srand(time(NULL));
+	for(int j = 0; j < tam; j++){
+		if(balitas[j].ybala() == 0){ // randomizamos la posici?n al iniciar
+			num_R[j] = 2 + rand() % (88-2);
+		}
+		if(enemys[j].Vidas() >= 1){ //bala aleatoria 1
+			if(num_R[j] < 2 || num_R[j] > 84){
+				while(true){
+					num_R[j] = 2 + rand() % (86-2);
+					if(num_R[j] > 1 && num_R[j] < 85){
+						break;
+					}
+				}
+			}
+			if(num_R[j] == enemys[j].xEne() && disparados[j] == false){
+				mover_bal[j] = true;
+				disparados[j] = true;
+				balitas[j].setY(enemys[j].yEne()+2);
+				balitas[j].setX(enemys[j].xEne()+1);
+			}
+			if(mover_bal[j] == true && disparados[j] == true){
+				if (col_ciudades(balitas,j, tam) == 1){ // si choco con una ciudad o torreta
+					num_R[j] = 2 + rand() % (86-2);
+					mover_bal[j] = false;
+					disparados[j] = false;
+				}else{}
+					if(balitas[j].ybala() >= 22){
+						num_R[j] = 2 + rand() % (86-2);
+						Color(3,3);
+						balitas[j].borrar();
+						Color(0,15);
+						mover_bal[j] = false;
+						disparados[j] = false;
+					}else{}
+						if(balitas[j].ybala() >= 17){
+							Color(3,3);
+							balitas[j].borrar();
+							balitas[j].movimiento();
+							balitas[j].pintar();
+							Color(0,15);
+						}else{
+							Color(0,15);
+							balitas[j].borrar();
+							balitas[j].movimiento();
+							balitas[j].pintar();
+						}
+			}
+		}
+	}
+}
 int main() {
 	console con( 90, 30 );
 	menu_general();
@@ -522,27 +584,52 @@ int main() {
 	ciudad_6.pintar();
 	enemigo_1.pintar();
 	while(on){
+		Color(0,15);
+		for(int i = 0; i <3; i++){
+				torres[i].pintar();
+		}
+		for(int i = 0; i < 6; i++){
+			if (ciudades[i].getV() >= 1){
+				ciudades[i].pintar();
+			}
+		}
+		escenario();
 		if(nivel == 1){
-			escenario();
-			Sleep(20);
-			enemigo_1.destruir();
+			rutina_enemigos1(balas_E1, enemigos1, 3);
 			if(kbhit()){
 				tecla = getch();
-				if(tecla == 32){
+				if(tecla == 80 && !central && !izq && !der && torres[1].getV() == 1){
 					disparo = 1;
-					tecla = -1;
+					central = true;
+				}
+				if(tecla == 75 && !central && !izq && !der && torres[0].getV() == 1){
+					disparo = 2;
+					izq = true;
+				}
+				if(tecla == 77 && !central && !izq && !der && torres[2].getV() == 1){
+					disparo = 3;
+					der = true;
 				}
 		    }
-		    bala_T.borrar();
 		    if(disparo == 1){
-		    	bala_T.movimiento();
-		    	bala_T.pintar();
-		    	if(bala_T.ybala() == 0){
-		    		disparo = 0;
+		    	disparo = movbalaT(0, disparo, enemigos1, 3, 0);
+		    	if (disparo != 1){
+		    		central = false;
+				}
+			}else if(disparo == 2){
+				disparo = movbalaT(1, disparo, enemigos1, 3, 0);
+				if (disparo != 2){
+		    		izq = false;
+				}
+			}else if(disparo == 3){
+				disparo = movbalaT(2, disparo, enemigos1, 3, 0);
+				if (disparo != 3){
+		    		der = false;
 				}
 			}
-		    enemigo_1.movimiento();
-		    enemigo_1.pintar();
+			if(cant_enemigos[0] == 0){
+				nivel += 1;
+			}
 		}
 	}
 	return 0;
