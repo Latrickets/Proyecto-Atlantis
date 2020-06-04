@@ -111,3 +111,19 @@ void Enemigo::movimiento(){
 		}
 	}
 }
+int Enemigo::xEne(){
+	return this->x;
+}
+int Enemigo::yEne(){
+	return this->y;
+}
+int Enemigo::Vidas(){
+	return this->vida;
+}
+int Enemigo::sVidas( int _nVida){
+	this->vida = _nVida;
+}
+void Enemigo::destruct(){
+	this->x = 0;
+	this->y = 0;
+}
