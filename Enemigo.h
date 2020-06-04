@@ -17,12 +17,20 @@ class Enemigo {
 		int y;
 		int vida;
 		int numE;
+		int dir;
 		int dx;
+		int ini_x, ini_y;
 	public:
-		Enemigo(int, int, int, int);
+		Enemigo();
+		void crear(int, int, int, int, int);
 		void pintar();
 		void destruir();
 		void movimiento();
+		int xEne();
+		int yEne();
+		int Vidas();
+		int sVidas(int);
+		void destruct();
 };
 
 

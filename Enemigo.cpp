@@ -41,25 +41,40 @@ void gotoxy4(int x, int y){
 	dwPos.Y = y;
 	SetConsoleCursorPosition(hCon, dwPos);
 }
-Enemigo::Enemigo(int _x, int _y, int _vida, int _numE){
-	this->x = _x;
-	this->y = _y;
+Enemigo::Enemigo(){}
+void Enemigo::crear(int _x, int _y, int _vida, int _numE, int _dir){
+	this->x = _x; 
+	this->y = _y; this->ini_y = this->y;
 	this->vida = _vida;
 	this->numE = _numE;
-	this->dx = -1;
+	this->dir = _dir;
+	if (this->dir == 0){
+		this->dx = -1;
+		this->ini_x = 84;
+	}else{
+		this->dx = 1;
+		this->ini_x = 0;
+	}
 }
 void Enemigo::pintar(){
-	if(numE == 1){
-		Color3(0,5);gotoxy4(this->x, this->y);printf("%c",219);Color3(0,7);printf("%c",219);Color3(0,5);printf("%c%c", 219,219);
-		Color3(0,8);gotoxy4(this->x+1, this->y+1);printf("%c%c",219,219);
-		Color3(0,2);gotoxy4(this->x+2, this->y+2);printf("%c",223);
-	}else if(numE == 2){
-		Color3(0,2);gotoxy4(this->x, this->y);printf("%c",254);Color3(0,7);printf("%c",219);Color3(0,7);printf("%c", 219);Color3(0,2);printf("%c", 254);
-		Color3(0,2);gotoxy4(this->x+1, this->y+1);printf("%c%c",87,87);
-	}else if(numE == 3){
-		Color3(0,8);gotoxy4(this->x, this->y);printf("%c",206);Color3(0,4);printf("%c%c",220,220);Color3(0,4);printf("%c", 220);Color3(0,8);printf("%c", 206);
-		Color3(0,8);gotoxy4(this->x+1, this->y+1);printf("%c",203);Color3(0,8);printf("%c", 206);Color3(0,8);printf("%c", 203);
-		Color3(0,4);gotoxy4(this->x+2, this->y+2);printf("%c",223);
+		if(vida >= 1){
+		if(numE == 1 && dir == 0){
+			Color3(0,5);gotoxy4(this->x, this->y);printf("%c",219);Color3(0,7);printf("%c",219);Color3(0,5);printf("%c%c", 219,219);
+			Color3(0,8);gotoxy4(this->x+1, this->y+1);printf("%c%c",219,219);
+			Color3(0,2);gotoxy4(this->x+2, this->y+2);printf("%c",223);
+		}else if(numE == 1 && dir == 1){
+			Color3(0,5);gotoxy4(this->x, this->y);printf("%c%c",219,219);Color3(0,7);printf("%c",219);Color3(0,5);printf("%c",219);
+			Color3(0,8);gotoxy4(this->x+1, this->y+1);printf("%c%c",219,219);
+			Color3(0,2);gotoxy4(this->x+1, this->y+2);printf("%c",223);
+		}else if(numE == 2){
+			Color3(0,2);gotoxy4(this->x, this->y);printf("%c",254);Color3(0,7);printf("%c",219);Color3(0,7);printf("%c", 219);Color3(0,2);printf("%c", 254);
+			Color3(0,2);gotoxy4(this->x+1, this->y+1);printf("%c%c",87,87);
+		}
+		else if(numE == 3){
+			Color3(0,8);gotoxy4(this->x, this->y);printf("%c",206);Color3(0,4);printf("%c%c",220,220);Color3(0,4);printf("%c", 220);Color3(0,8);printf("%c", 206);
+			Color3(0,8);gotoxy4(this->x+1, this->y+1);printf("%c",203);Color3(0,8);printf("%c", 206);Color3(0,8);printf("%c", 203);
+			Color3(0,4);gotoxy4(this->x+2, this->y+2);printf("%c",223);
+		}
 	}
 	Color3(0,15);
 }
@@ -82,17 +97,17 @@ void Enemigo::movimiento(){
 	if(numE == 1){
 		this->x = this->x + dx;
 		if(this->x == 0 || this->x == 84){
-			dx *= -1;
+			this->x = this->ini_x;
 		}
-	} else if(numE == 2){
+	}else if(numE == 2){
 		this->x = this->x + dx;
 		if(this->x == 0 || this->x == 84){
-			dx *= -1;
+			this->x = this->ini_x;
 		}
 	}else if(numE == 3){
 		this->x = this->x + dx;
 		if(this->x == 0 || this->x == 84){
-			dx *= -1;
+			this->x = this->ini_x;
 		}
 	}
 }
