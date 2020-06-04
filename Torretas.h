@@ -17,12 +17,15 @@ class Torretas {
 		int vida;
 		int numT;
 	public:
-		Torretas(int, int, int, int);
+		Torretas();
+		void crear(int, int, int, int);
 		void pintar();
 		void destruir();
 		int X();
 		int Y();
+		int setV(int);
+		int getV();
 };
 
-
 #endif //UNTITLED_TORRETAS_H
+

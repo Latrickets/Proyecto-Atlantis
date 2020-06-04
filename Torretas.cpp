@@ -30,7 +30,8 @@ void gotoxy2(int x, int y){
 	dwPos.Y = y;
 	SetConsoleCursorPosition(hCon, dwPos);
 }
-Torretas::Torretas(int _x, int _y, int _vida, int _numT){
+Torretas::Torretas(){}
+void Torretas::crear(int _x, int _y, int _vida, int _numT){
 	this->x = _x;
 	this->y = _y;
 	this->vida = _vida;
@@ -38,17 +39,36 @@ Torretas::Torretas(int _x, int _y, int _vida, int _numT){
 }
 void Torretas::pintar(){
 	if(numT == 1){
-		gotoxy2(this->x,this->y);printf("%c%c", 124, 124);
-		gotoxy2(this->x,this->y+1);cout<<"--";
-		SetColor2(13);gotoxy2(this->x,this->y+2);printf("%c%c",219,219);
+		if(this->vida != 1){
+			gotoxy2(this->x,this->y);cout<<"  ";
+			gotoxy2(this->x,this->y+1);cout<<"--";
+			SetColor2(13);gotoxy2(this->x,this->y+2);printf("%c",219);
+		}else{
+			gotoxy2(this->x,this->y);printf("%c%c", 124, 124);
+			gotoxy2(this->x,this->y+1);cout<<"--";
+			SetColor2(13);gotoxy2(this->x,this->y+2);printf("%c%c",219,219);
+		}
 	}else if(numT == 2){
-		gotoxy2(this->x,this->y);printf("%c%c", 47, 47);
-		gotoxy2(this->x,this->y+1);cout<<"--";
-		SetColor2(13);gotoxy2(this->x,this->y+2);printf("%c%c",219,219);
+		if(this->vida != 1){
+			gotoxy2(this->x,this->y);cout<<"  ";
+			gotoxy2(this->x,this->y+1);cout<<"--";
+			SetColor2(13);gotoxy2(this->x,this->y+2);printf("%c",219);
+		}else{
+			gotoxy2(this->x,this->y);printf("%c%c", 47, 47);
+			gotoxy2(this->x,this->y+1);cout<<"--";
+			SetColor2(13);gotoxy2(this->x,this->y+2);printf("%c%c",219,219);	
+		}
+	
 	}else if(numT == 3){
-		gotoxy2(this->x,this->y);printf("%c%c", 92, 92);
-		gotoxy2(this->x,this->y+1);cout<<"--";
-		SetColor2(13);gotoxy2(this->x,this->y+2);printf("%c%c",219,219);
+		if(this->vida != 1){
+			gotoxy2(this->x,this->y);cout<<"  ";
+			gotoxy2(this->x,this->y+1);cout<<"--";
+			SetColor2(13);gotoxy2(this->x,this->y+2);printf("%c",219);
+		}else{
+			gotoxy2(this->x,this->y);printf("%c%c", 92, 92);
+			gotoxy2(this->x,this->y+1);cout<<"--";
+			SetColor2(13);gotoxy2(this->x,this->y+2);printf("%c%c",219,219);
+		}
 	}
 	SetColor2(15);
 }
@@ -63,3 +83,10 @@ int Torretas::X(){
 int Torretas::Y(){
 	return this->y;
 }
+int Torretas::getV(){
+	return this->vida;
+}
+int Torretas::setV(int _newV){
+	this->vida = _newV;
+}
+
