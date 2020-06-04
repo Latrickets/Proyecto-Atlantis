@@ -361,6 +361,33 @@ void fondo(){
 	}
 	Color(0,15);
 }
+
+void ini_nivel1(){
+	torres[0].crear(2,15,1,2); torres[1].crear(43,13,1,1); torres[2].crear(85,13,1,3);
+	//izquierda a derecha
+	enemigos1[0].crear(0,2,1,1,1);
+	//derecha a izquierda
+	enemigos1[1].crear(84,5,1,1,0);
+	enemigos1[2].crear(50,5,1,1,0);
+	//ciudades
+	ciudades[0].crear(9,22,1,1); ciudades[1].crear(22,19,1,2); ciudades[2].crear(37,19,1,3); ciudades[3].crear(47,17,1,4);
+	ciudades[4].crear(55,20,1,5); ciudades[5].crear(81,17,1,6);
+	//balas central
+	balas_T[0].crear(torres[1].X(),torres[1].Y()-1,0);
+	balas_T[3].crear(torres[1].X(),torres[1].Y()-1,0);
+	//balas izquierda
+	balas_T[1].crear(torres[0].X()+2, torres[0].Y()-1,1);
+	balas_T[4].crear(torres[0].X()+2, torres[0].Y()-1,1);
+	//balas derecha
+	balas_T[2].crear(torres[2].X()-2, torres[2].Y()-1,2);
+	balas_T[5].crear(torres[2].X()-2, torres[2].Y()-1,2);
+	//balas de enemigos
+	balas_E1[0].crear(0, 0,3);
+	balas_E1[1].crear(0, 0,3);
+	balas_E1[2].crear(0, 0,3);
+	// enemigos
+}
+
 bool colisionT(Enemigo enemys[], int tam, int num_enemys){ // Colision a enemigos nivel 1
 	for(int j = 0; j < 3; ++j){
 		for(int i = 0; i < tam; ++i){
@@ -399,6 +426,69 @@ int movbalaT(int x, int _disp, Enemigo enemys[], int tam, int num_enemys){ // Mo
 	}
 	return _disp;
 }
+
+int col_ciudades(Bala balitas[],int bal, int tam){ //colision balas enemigos.
+	if(ciudades[0].getNC() == 1){
+		// ciudades
+		if (balitas[bal].xbala() >= ciudades[0].getX() && balitas[bal].xbala() < ciudades[0].getX()+6 && balitas[bal].ybala() >= ciudades[0].getY() && balitas[bal].ybala() < ciudades[0].getY()+2){
+			Color(3,3);
+			ciudades[0].borrar();
+			Color(0,15);
+			ciudades[0].destruct();
+			cant_ciudades -= 1;
+			return 1;
+		}
+		if (balitas[bal].xbala() >= ciudades[1].getX() && balitas[bal].xbala() < ciudades[1].getX()+6 && balitas[bal].ybala() >= ciudades[1].getY() && balitas[bal].ybala() < ciudades[1].getY()+2){
+			Color(3,3);
+			ciudades[1].borrar();
+			Color(0,15);
+			ciudades[1].destruct();
+			cant_ciudades -= 1;
+			return 1;
+		}
+		if (balitas[bal].xbala() >= ciudades[2].getX() && balitas[bal].xbala() < ciudades[2].getX()+2 && balitas[bal].ybala() >= ciudades[2].getY() && balitas[bal].ybala() < ciudades[2].getY()+2){
+			Color(3,3);
+			ciudades[2].borrar();
+			Color(0,15);
+			ciudades[2].destruct();
+			cant_ciudades -= 1;
+			return 1;
+		}
+		if (balitas[bal].xbala() >= ciudades[3].getX() && balitas[bal].xbala() < ciudades[3].getX()+2 && balitas[bal].ybala() >= ciudades[3].getY() && balitas[bal].ybala() < ciudades[3].getY()+2){
+			Color(3,3);
+			ciudades[3].borrar();
+			Color(0,15);
+			ciudades[3].destruct();
+			cant_ciudades -= 1;
+			return 1;
+		}
+		if (balitas[bal].xbala() >= ciudades[4].getX() && balitas[bal].xbala() < ciudades[4].getX()+6 && balitas[bal].ybala() >= ciudades[4].getY() && balitas[bal].ybala() < ciudades[4].getY()+2){
+			Color(3,3);
+			ciudades[4].borrar();
+			Color(0,15);
+			ciudades[4].destruct();
+			cant_ciudades -= 1;
+			return 1;
+		}
+		if (balitas[bal].xbala() >= ciudades[5].getX() && balitas[bal].xbala() < ciudades[5].getX()+1 && balitas[bal].ybala() >= ciudades[5].getY() && balitas[bal].ybala() < ciudades[5].getY()+2){
+			Color(3,3);
+			ciudades[5].borrar();
+			Color(0,15);
+			ciudades[5].destruct();
+			cant_ciudades -= 1;
+			return 1;
+		}
+		// torretas
+		for(int k = 0; k < 3; ++k){
+			if (balitas[bal].xbala() >= torres[k].X() && balitas[bal].xbala() < torres[k].X()+2 && balitas[bal].ybala() >= torres[k].Y() && balitas[bal].ybala() < torres[k].Y()+2){
+				torres[k].setV(0);
+				return 1;
+			}	
+		}
+		return 0;
+	}
+}
+
 int main() {
 	console con( 90, 30 );
 	menu_general();
