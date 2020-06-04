@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <conio.h>
 #include <windows.h>
+#include <ctime>
 
 #include "Torretas.h"
 #include "Enemigo.h"
@@ -562,27 +563,17 @@ int main() {
 	/*char soundfile[] = "Sounds/disparo1.wav";
 	cout<<PlaySound((LPCSTR)soundfile, NULL, SND_FILENAME | SND_ASYNC );
 	*/
-	//variables en general
+	//variables controladoras del juego
 	int opc;
 	int nivel = 1;
 	bool on = true;
-	int tecla,disparo=0;
+	int tecla;
+	//controladores de los disparos torretas.
+	int disparo=0;
+	bool disparar = false;
+	bool central = false, izq = false, der = false;
 	//Declarar objetos a usar
-	Torretas torreta_I(2,15,1,2), torreta_M(43,13,1,1),torreta_D(85,13,1,3);
-	Ciudad ciudad_1(9,22,1,1), ciudad_2(22,19,1,2), ciudad_3(37,19,1,3), ciudad_4(47,17,1,4), ciudad_5(55,20,1,5),ciudad_6(81,17,1,6);
-	Enemigo enemigo_1(84,3,1,1);
-	Bala bala_T(torreta_M.X(),torreta_M.Y()-1);
-//---------------------------------------------------------------------
-	torreta_I.pintar();
-	torreta_M.pintar();
-	torreta_D.pintar();
-	ciudad_1.pintar();
-	ciudad_2.pintar();
-	ciudad_3.pintar();
-	ciudad_4.pintar();
-	ciudad_5.pintar();
-	ciudad_6.pintar();
-	enemigo_1.pintar();
+	ini_nivel1();
 	while(on){
 		Color(0,15);
 		for(int i = 0; i <3; i++){
