@@ -81,15 +81,15 @@ void Enemigo::pintar(){
 void Enemigo::destruir(){
 	if(numE == 1){
 		Color3(0,0);gotoxy4(this->x, this->y);printf("    ");
-		Color3(0,0);gotoxy4(this->x+1, this->y+1);printf("  ");
-		Color3(0,0);gotoxy4(this->x+2, this->y+2);printf(" ");
+		Color3(0,0);gotoxy4(this->x, this->y+1);printf("    ");
+		Color3(0,0);gotoxy4(this->x, this->y+2);printf("    ");
 	}else if(numE == 2){
 		Color3(0,0);gotoxy4(this->x, this->y);printf("    ");
-		Color3(0,0);gotoxy4(this->x+1, this->y+1);printf("  ");
+		Color3(0,0);gotoxy4(this->x, this->y+1);printf("    ");
 	}else if(numE == 3){
 		Color3(0,0);gotoxy4(this->x, this->y);printf("     ");
-		Color3(0,0);gotoxy4(this->x+1, this->y+1);printf("   ");
-		Color3(0,0);gotoxy4(this->x+2, this->y+2);printf(" ");
+		Color3(0,0);gotoxy4(this->x, this->y+1);printf("     ");
+		Color3(0,0);gotoxy4(this->x, this->y+2);printf("     ");
 	}
 	Color3(0,15);
 }

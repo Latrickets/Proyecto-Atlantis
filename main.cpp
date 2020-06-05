@@ -12,26 +12,37 @@
 #include "Bala.h"
 using namespace std;
 Enemigo enemigos1[3];
+Enemigo enemigos2[5];
+Enemigo enemigos3[7];
+Enemigo enemigos4[3];
 Torretas torres[3];
 Ciudad ciudades[6];
 Bala balas_T[3];
 
 //posicion random de las balas enemigos 1
-
 int num_R[3] = {0,0,0};
 bool mover_bal[3] = {false,false,false}, disparados[3] = {false,false,false};
 Bala balas_E1[3];
-//
+//posicion 2
+int num_R2[5] = {0,0,0,0,0};
+bool mover_bal2[5] = {false,false,false,false,false}, disparados2[5] = {false,false,false,false,false};
 Bala balas_E2[5];
+//posicion 3
+int num_R3[7] = {0,0,0,0,0,0,0};
+bool mover_bal3[7] = {false,false,false,false,false,false,false}, disparados3[7] = {false,false,false,false,false,false,false};
 Bala balas_E3[7];
+//posicion 4
+int num_R4[3] = {0,0,0};
+bool mover_bal4[3] = {false,false,false}, disparados4[3] = {false,false,false};
 Bala balas_E4[3];
 //variables controladoras generales del juego
 int cant_ciudades = 6;
 int cant_torretas = 3;
 int cant_enemigos[4] = {3,5,7,3};
+int nivel = 1;
 
 //----------------------------------------------------------------------------
-struct console
+/*struct console
   {
   console( unsigned width, unsigned height )
     {
@@ -65,7 +76,7 @@ struct console
   HANDLE                     hConOut;
   CONSOLE_SCREEN_BUFFER_INFO csbi;
   };
-
+*/
 //----------------------------------------------------------------------------
 //----------------------------------------------------------------------------
 void SetColor(int ForgC) 
@@ -387,20 +398,26 @@ void ini_nivel1(){
 	balas_E1[1].crear(0, 0,3);
 	balas_E1[2].crear(0, 0,3);
 	// enemigos
+	enemigos2[0].crear(0,2,1,2,1); /*izquierda a derecha*/ balas_E2[0].crear(0, 0,3);
+	enemigos2[1].crear(84,5,1,1,0); /*derecha a izquierda*/balas_E2[1].crear(0, 0,3);
+	enemigos2[2].crear(0,2,1,1,1); /*izquierda a derecha*/ balas_E2[2].crear(0, 0,3);
+	enemigos2[3].crear(84,5,1,2,0); /*derecha a izquierda*/balas_E2[3].crear(0, 0,3);
+	enemigos2[4].crear(0,2,1,2,1); /*izquierda a derecha*/ balas_E2[4].crear(0, 0,3);
+
 }
 
-bool colisionT(Enemigo enemys[], int tam, int num_enemys){ // Colision a enemigos nivel 1
+bool colisionT(Enemigo enemys[], Bala balitas[], int tam, int num_enemys){ // Colision a enemigos nivel 1
 	for(int j = 0; j < 3; ++j){
 		for(int i = 0; i < tam; ++i){
 			if(balas_T[j].xbala() >= enemys[i].xEne() && balas_T[j].xbala() < enemys[i].xEne()+4 && balas_T[j].ybala() >= enemys[i].yEne() && balas_T[j].ybala() < enemys[i].yEne()+3){
 				enemys[i].destruir();
 				enemys[i].sVidas(0);
-				if(balas_E1[i].ybala() >=17){
+				if(balitas[i].ybala() >=17){
 					Color(3,3);
-					balas_E1[i].borrar();
+					balitas[i].borrar();
 					Color(0,15);
 				}else{
-					balas_E1[i].borrar();	
+					balitas[i].borrar();	
 				}
 				cant_enemigos[num_enemys] -= 1;
 				return true;
@@ -409,12 +426,12 @@ bool colisionT(Enemigo enemys[], int tam, int num_enemys){ // Colision a enemigo
 	}
 	return false;
 }
-int movbalaT(int x, int _disp, Enemigo enemys[], int tam, int num_enemys){ // Movimiento y colision a enemigos
+int movbalaT(int x, int _disp, Enemigo enemys[], Bala balitas[], int tam, int num_enemys){ // Movimiento y colision a enemigos
 	Color(0,15);
 	balas_T[x].borrar();
 	balas_T[x].movimiento();
 	balas_T[x].pintar();
-	if(colisionT(enemys, tam, num_enemys) == true){
+	if(colisionT(enemys,balitas, tam, num_enemys) == true){
 		balas_T[x].borrar();
 		balas_T[x].setY(0);
 		_disp = 0;
@@ -496,15 +513,82 @@ void rutina_enemigos1(Bala balitas[], Enemigo enemys[], int tam){
 		if (enemys[i].Vidas() >= 1){
 			enemys[i].destruir();
 			enemys[i].movimiento();
-			enemys[i].pintar();	
+			enemys[i].pintar();
 		}else{
 			enemys[i].destruct();
+			enemys[i].destruir();
 		}
 	}
 	//disparos del nivel 1
 	srand(time(NULL));
 	for(int j = 0; j < tam; j++){
-		if(balitas[j].ybala() == 0){ // randomizamos la posici?n al iniciar
+		if(balitas[j].ybala() == 0){ // randomizamos la posicion al iniciar
+			num_R[j] = 2 + rand() % (88-2);
+		}
+		if(enemys[j].Vidas() >= 1){ //bala aleatoria 1
+			if(num_R[j] < 2 || num_R[j] > 84){
+				while(true){
+					num_R[j] = 2 + rand() % (86-2);
+					if(num_R[j] > 1 && num_R[j] < 85){
+						break;
+					}
+				}
+			}
+			if(num_R[j] == enemys[j].xEne() && disparados[j] == false){
+				mover_bal[j] = true;
+				disparados[j] = true;
+				balitas[j].setY(enemys[j].yEne()+2);
+				balitas[j].setX(enemys[j].xEne()+1);
+			}else{}
+			if(mover_bal[j] == true && disparados[j] == true){
+				if (col_ciudades(balitas,j, tam) == 1){ // si choco con una ciudad o torreta
+					num_R[j] = 2 + rand() % (86-2);
+					mover_bal[j] = false;
+					disparados[j] = false;
+				}else{}
+					if(balitas[j].ybala() >= 22){
+						num_R[j] = 2 + rand() % (86-2);
+						Color(3,3);
+						balitas[j].borrar();
+						Color(0,15);
+						mover_bal[j] = false;
+						disparados[j] = false;
+					}else{}
+						if(balitas[j].ybala() >= 17){
+							Color(3,3);
+							balitas[j].borrar();
+							balitas[j].movimiento();
+							balitas[j].pintar();
+							Color(0,15);
+						}else{
+							Color(0,15);
+							balitas[j].borrar();
+							balitas[j].movimiento();
+							balitas[j].pintar();
+						}
+			}
+		}else{}
+	}
+}
+
+
+void rutina_enemigos2(Bala balitas[], Enemigo enemys[], int tam){
+	if (cant_enemigos[1] > 3){
+		//mov
+		for (int i = 0; i < 2; ++i){ // rutina primeras 2 naves
+			if (enemys[i].Vidas() >= 1){
+				enemys[i].destruir();
+				enemys[i].movimiento();
+				enemys[i].pintar();
+			}else{
+				enemys[i].destruct();
+				enemys[i].destruir();
+			}
+		}
+		//disparo
+	srand(time(NULL));
+	for(int j = 0; j < 2; j++){
+		if(balitas[j].ybala() == 0){ // randomizamos la posicion al iniciar
 			num_R[j] = 2 + rand() % (88-2);
 		}
 		if(enemys[j].Vidas() >= 1){ //bala aleatoria 1
@@ -551,9 +635,81 @@ void rutina_enemigos1(Bala balitas[], Enemigo enemys[], int tam){
 			}
 		}
 	}
+		
+	}else if(cant_enemigos[1] <= 3 && cant_enemigos[1] > 1){
+		//mov
+		for (int k = 2; k <= 3; k++){ // rutina siguientes 2 naves
+			if (enemys[k].Vidas() >= 1){
+				enemys[k].destruir();
+				enemys[k].movimiento();
+				enemys[k].pintar();
+			}else{
+				enemys[k].destruct();
+				enemys[k].destruir();
+			}
+		}
+		//disparo
+		srand(time(NULL));
+		for(int j = 2; j <= 3; j++){
+			if(balitas[j].ybala() == 0){ // randomizamos la posicion al iniciar
+				num_R[j] = 2 + rand() % (88-2);
+			}
+			if(enemys[j].Vidas() >= 1){ //bala aleatoria 1
+				if(num_R[j] < 2 || num_R[j] > 84){
+					while(true){
+						num_R[j] = 2 + rand() % (86-2);
+						if(num_R[j] > 1 && num_R[j] < 85){
+							break;
+						}
+					}
+				}
+				if(num_R[j] == enemys[j].xEne() && disparados[j] == false){
+					mover_bal[j] = true;
+					disparados[j] = true;
+					balitas[j].setY(enemys[j].yEne()+2);
+					balitas[j].setX(enemys[j].xEne()+1);
+				}
+				if(mover_bal[j] == true && disparados[j] == true){
+					if (col_ciudades(balitas,j, tam) == 1){ // si choco con una ciudad o torreta
+						num_R[j] = 2 + rand() % (86-2);
+						mover_bal[j] = false;
+						disparados[j] = false;
+					}else{}
+						if(balitas[j].ybala() >= 22){
+							num_R[j] = 2 + rand() % (86-2);
+							Color(3,3);
+							balitas[j].borrar();
+							Color(0,15);
+							mover_bal[j] = false;
+							disparados[j] = false;
+						}else{}
+						if(balitas[j].ybala() >= 17){
+							Color(3,3);
+							balitas[j].borrar();
+							balitas[j].movimiento();
+							balitas[j].pintar();
+							Color(0,15);
+						}else{
+							Color(0,15);
+							balitas[j].borrar();
+							balitas[j].movimiento();
+							balitas[j].pintar();
+						}
+				}
+			}
+		}//fin disparo
+		
+	}
+}
+void estadisticas(){
+	if (nivel == 1){
+		gotoxy(50,24);cout<<"Enemigos faltantes: "<<cant_enemigos[0];
+	}else if(nivel == 2){
+		gotoxy(30,24);cout<<"Enemigos faltantes: "<<cant_enemigos[1];
+	}
 }
 int main() {
-	console con( 90, 30 );
+	//console con( 90, 35 );
 	menu_general();
 	system("cls");
 	OcultarCursor();
@@ -565,7 +721,6 @@ int main() {
 	*/
 	//variables controladoras del juego
 	int opc;
-	int nivel = 1;
 	bool on = true;
 	int tecla;
 	//controladores de los disparos torretas.
@@ -585,6 +740,7 @@ int main() {
 			}
 		}
 		escenario();
+		//estadisticas();
 		if(nivel == 1){
 			rutina_enemigos1(balas_E1, enemigos1, 3);
 			if(kbhit()){
@@ -603,22 +759,58 @@ int main() {
 				}
 		    }
 		    if(disparo == 1){
-		    	disparo = movbalaT(0, disparo, enemigos1, 3, 0);
+		    	disparo = movbalaT(0, disparo, enemigos1, balas_E1, 3, 0);
 		    	if (disparo != 1){
 		    		central = false;
 				}
 			}else if(disparo == 2){
-				disparo = movbalaT(1, disparo, enemigos1, 3, 0);
+				disparo = movbalaT(1, disparo, enemigos1, balas_E1, 3, 0);
 				if (disparo != 2){
 		    		izq = false;
 				}
 			}else if(disparo == 3){
-				disparo = movbalaT(2, disparo, enemigos1, 3, 0);
+				disparo = movbalaT(2, disparo, enemigos1, balas_E1, 3, 0);
 				if (disparo != 3){
 		    		der = false;
 				}
 			}
 			if(cant_enemigos[0] == 0){
+				nivel += 1;
+			}
+		}else if(nivel == 2){
+			rutina_enemigos2(balas_E2, enemigos2, 5);
+			if(kbhit()){
+				tecla = getch();
+				if(tecla == 80 && !central && !izq && !der && torres[1].getV() == 1){
+					disparo = 1;
+					central = true;
+				}
+				if(tecla == 75 && !central && !izq && !der && torres[0].getV() == 1){
+					disparo = 2;
+					izq = true;
+				}
+				if(tecla == 77 && !central && !izq && !der && torres[2].getV() == 1){
+					disparo = 3;
+					der = true;
+				}
+		    }
+		    if(disparo == 1){
+		    	disparo = movbalaT(0, disparo, enemigos2, balas_E2, 5, 1);
+		    	if (disparo != 1){
+		    		central = false;
+				}
+			}else if(disparo == 2){
+				disparo = movbalaT(1, disparo, enemigos2, balas_E2,5, 1);
+				if (disparo != 2){
+		    		izq = false;
+				}
+			}else if(disparo == 3){
+				disparo = movbalaT(2, disparo, enemigos2, balas_E2,5, 1);
+				if (disparo != 3){
+		    		der = false;
+				}
+			}
+			if(cant_enemigos[1] == 0){
 				nivel += 1;
 			}
 		}
