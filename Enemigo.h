@@ -31,6 +31,7 @@ class Enemigo {
 		int Vidas();
 		int sVidas(int);
 		void destruct();
+		int getnumE();
 };
 
 

@@ -107,7 +107,7 @@ void Enemigo::movimiento(){
 	}else if(numE == 3){
 		this->x = this->x + dx;
 		if(this->x == 0 || this->x == 84){
-			this->x = this->ini_x;
+			this->dx *= -1;
 		}
 	}
 }
@@ -121,9 +121,12 @@ int Enemigo::Vidas(){
 	return this->vida;
 }
 int Enemigo::sVidas( int _nVida){
-	this->vida = _nVida;
+	this->vida -= _nVida;
 }
 void Enemigo::destruct(){
-	this->x = 0;
-	this->y = 0;
+	this->x = 89;
+	this->y = 25;
+}
+int Enemigo::getnumE(){
+	return this->numE;
 }
