@@ -137,13 +137,14 @@ void titulo(int textos){
     
     }else if(textos == 2){
     	gotoxy(35,0);cout<<"Instrucciones";
-    	gotoxy(8,2);cout<<"Destruye todas las naves enemigas antes de que destruyan la ciudad.";
-    	gotoxy(8,3);cout<<"Disparo nave central:";
-    	gotoxy(8,4);cout<<"Presionando la tecla espacio.";
-    	gotoxy(8,5);cout<<"Disparo nave lateral izquierda:";
-    	gotoxy(8,6);cout<<"Presiona la tecla izquierda.";
-    	gotoxy(8,7);cout<<"Disparo nave lateral derecha:";
-    	gotoxy(8,8);cout<<"Presiona la tecla derecha y espacio.";
+    	gotoxy(8,2);cout<<"Destruye las naves enemigas antes de que destruyan la ciudad";
+    	gotoxy(8,3);cout<<"o las torretas defensoras.";
+    	gotoxy(8,4);cout<<"Disparo torreta central:";
+    	gotoxy(8,5);cout<<"Presionando la flecha abajo";
+    	gotoxy(8,6);cout<<"Disparo torreta lateral izquierda:";
+    	gotoxy(8,7);cout<<"Presiona la flecha izquierda.";
+    	gotoxy(8,8);cout<<"Disparo torreta lateral derecha:";
+    	gotoxy(8,9);cout<<"Presiona la flecha derecha";
 	}else if(textos == 3){
 		gotoxy(37,0);cout<<"Creditos";
 		gotoxy(8,3);cout<<"Creado por: ";
@@ -1130,11 +1131,14 @@ bool mover_bal4[3] = {false,false,false}, disparados4[3] = {false,false,false};
 //variables controladoras generales del juego
 cant_ciudades = 6;
 cant_torretas = 3;
-int cant_enemigos[4] = {3,5,7,3};
-int nivel = 1;
+cant_enemigos[0] = 3;
+cant_enemigos[1] = 5;
+cant_enemigos[2] = 7;
+cant_enemigos[3] = 3;
+nivel = 1;
 //Variables controladoras de oleadas
-int num_oleada = 1;
-int danio = 1;
+num_oleada = 1;
+danio = 1;
 ini_nivel1();
 }
 void menu_general(){
